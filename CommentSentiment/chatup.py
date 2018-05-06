@@ -14,16 +14,14 @@ import json
 import socketio
 from socketio import Middleware
 import eventlet
-# eventlet.sleep()
+eventlet.sleep()
 import eventlet.wsgi
 eventlet.monkey_patch()
 
-# eventlet.listen(("localhost", 5355))
+eventlet.listen(("localhost", 5353))
 
 app = Flask(__name__)
-# client = MongoClient()
 
-# sio = SocketIO( app, async_handlers=True)
 sio = socketio.Server()
 
 # app = Flask(__name__)
@@ -139,5 +137,5 @@ if __name__ == '__main__':
     # deploy as an eventlet WSGI server
     eventlet.wsgi.server(eventlet.listen(('127.0.0.1', 5353)), app) # Localhost
     eventlet.wsgi.server(eventlet.wrap_ssl(eventlet.listen(('127.0.0.1', 5353)), certfile='cert.crt',keyfile='private.key',server_side=True), app) # Localhost
-    # eventlet.wsgi.server(eventlet.listen(('0.0.0.0', 5355)), app) # kite Server
-    # eventlet.wsgi.server(eventlet.wrap_ssl(eventlet.listen(('0.0.0.0', 5355)), certfile='cert.crt',keyfile='private.key',server_side=True), app) # Kite Server
+    # eventlet.wsgi.server(eventlet.listen(('0.0.0.0', 5353)), app) # kite Server
+    # eventlet.wsgi.server(eventlet.wrap_ssl(eventlet.listen(('0.0.0.0', 5353)), certfile='cert.crt',keyfile='private.key',server_side=True), app) # Kite Server
