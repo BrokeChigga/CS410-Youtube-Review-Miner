@@ -1,3 +1,5 @@
+import matplotlib
+matplotlib.use('Agg')
 import comment_extract as CE
 import sentimentYouTube as SYT
 
@@ -9,7 +11,7 @@ def main():
 	# if count = -1, fetch all comments
 	count = int(input("Enter no. of comments to extract : "))
 	comments = CE.commentExtract(videoId, count)
-	print(comments)
+	# print(comments)
 	SYT.sentiment(comments)
 
 

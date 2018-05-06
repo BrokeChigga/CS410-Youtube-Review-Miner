@@ -2,7 +2,6 @@ import lxml
 import requests
 import time
 import sys
-import progress_bar as PB
 
 YOUTUBE_IN_LINK = 'https://www.googleapis.com/youtube/v3/commentThreads?part=snippet&maxResults=100&order=relevance&pageToken={pageToken}&videoId={videoId}&key={key}'
 YOUTUBE_LINK = 'https://www.googleapis.com/youtube/v3/commentThreads?part=snippet&maxResults=100&order=relevance&videoId={videoId}&key={key}'
@@ -27,12 +26,8 @@ def commentExtract(videoId, count = -1):
 		comments.append(page_info['items'][i]['snippet']['topLevelComment']['snippet']['textOriginal'])
 		co += 1
 		if co == count:
-			PB.progress(co, count, cond = True)
-			print ()
 			return comments
 
-	PB.progress(co, count)
-	# INFINTE SCROLLING
 	while 'nextPageToken' in page_info:
 		temp = page_info
 		page_info = requests.get(YOUTUBE_IN_LINK.format(videoId = videoId, key = key, pageToken = page_info['nextPageToken']))
@@ -46,11 +41,5 @@ def commentExtract(videoId, count = -1):
 			comments.append(page_info['items'][i]['snippet']['topLevelComment']['snippet']['textOriginal'])
 			co += 1
 			if co == count:
-				PB.progress(co, count, cond = True)
-				print ()
 				return comments
-		PB.progress(co, count)
-	PB.progress(count, count, cond = True)
-	print ()
-
 	return comments

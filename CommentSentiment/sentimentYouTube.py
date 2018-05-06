@@ -65,12 +65,14 @@ def sentiment(comments):
 		count += 1
 		comment = features(words)
 		sentiment_value, confidence = VoteClassifier(classifier).classify(comment)
-		if count <= 20:
-			print(count, sentiment_value, confidence)
 		if sentiment_value == 'positive':# and confidence * 100 >= 60:
 			pos += 1
 		else:
 			neg += 1
 
-	print ("Positive sentiment : ", (pos * 100.0 /len(comments)) )
-	print ("Negative sentiment : ", (neg * 100.0 /len(comments)) )
+	output = []
+	output.append("Positive sentiment : " + str(pos * 100.0 /len(comments)))
+	output.append("Negative sentiment : " + str((neg * 100.0 /len(comments))))
+	return output
+	# print ("Positive sentiment : ", (pos * 100.0 /len(comments)) )
+	# print ("Negative sentiment : ", (neg * 100.0 /len(comments)) )

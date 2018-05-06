@@ -1,0 +1,80 @@
+{
+  "manifest_version": 2,
+  "name"            : "Clip",
+  "description"     : "Copy-Paste Data from Web pages",
+  "short_name"      : "Clip",
+  "version"         : "0.1",
+
+  "browser_action" : {
+    "default_icon"  : {
+      "16" : "assets/logo/logo_grayscale_16.png",
+      "19" : "assets/logo/logo_grayscale_19.png",
+      "38" : "assets/logo/logo_grayscale_38.png",
+      "48" : "assets/logo/logo_color_48.png",
+      "128": "assets/logo/logo_color_128.png"
+    }
+  },
+
+  "background" : {
+    "scripts" : ["app/background.js", "lib/socket.io.js"],
+    "persistent": true
+  },
+
+  "permissions": [
+    "storage",
+    "tabs",
+    "<all_urls>",
+    "activeTab",
+    "*://*.com/*",
+    "http://localhost/*"
+  ],
+
+  "web_accessible_resources": [
+    "app/contentScript/*",
+    "lib/*",
+    "assets/*"
+  ],
+
+  "content_security_policy": "script-src 'self' 'unsafe-eval' https://ssl.google-analytics.com; object-src 'self'",
+
+  // add any library here if it must always be executed upon every page load even before extension icon is clicked
+  "content_scripts": [
+    {
+      "matches" : ["<all_urls>"],
+      "js"      : [
+        "lib/jquery/jquery-3.1.1.min.js",
+        "lib/jquery/jquery-ui.min.js",
+        "app/contentScript/webView/contentFrame/contentFrame.js",
+        "app/contentScript/webView/query_group.js",
+        "lib/ntc.js",
+        "lib/mousetrap.min.js",
+        "lib/jquery/jquery.scrollstop.min.js",
+        "lib/popper/popper.js",
+        "lib/socket.io.js"
+//        "lib/bootstrap/js/bootstrap.3.3.7.min.js",
+//        "lib/bootstrap/js/bootstrap.min.js"
+      ],
+      "css"     : [
+        "app/contentScript/webView/contentFrame/contentFrame.css",
+        "assets/css/content-frame-external.css"
+//        "lib/bootstrap/css/bootstrap.3.3.7.min.css",
+//        "lib/bootstrap/css/bootstrap.min.css",
+//        "lib/bootstrap/css/bootstrap-theme.min.css"
+      ],
+      "all_frames": false
+    }
+  ],
+
+  "commands": {
+    "close_panels": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+Z",
+        "windows": "Ctrl+Shift+Z",
+        "mac": "Command+Shift+Z",
+        "chromeos": "Ctrl+Shift+Z",
+        "linux": "Ctrl+Shift+Z"
+      },
+      "description": "Close All Panels"
+    }
+  }
+}
