@@ -39,25 +39,33 @@
                         </div>
                     </div>
                 </form> -->
-              
-                <form id ="messageFormDesc" style="margin-bottom: 0px;">
-                    <div class="form-group">
-                        <div>
-                            <label>Enter Number of Comments for Sentiment Analysis:</label>
-                            <button style="background-color: #dff441 !important; float: right; color: black; display: none" class="btn btn-success" id="chinese">中文</button><br>
-                            <input style="height: 30px; width: 140px; display: inline-block; float: left; bottom: 2px;" id="messageName" placeholder="# of Comments"></input>
-                            <input style="background-color: #FF6037 !important; float: right;" type="submit" class="btn btn-warning" value="Sentiment Analysis" />
-                            <button style="background-color: #89f442 !important; float: right; color: black; display: block" class="btn btn-success" id="senti_graph">Sentiment Graph</button>
-                            <button style="background-color: #89f442 !important; float: right; color: black; display: none" class="btn btn-success" id="show_graph">Show Graph</button>
+                <label>Enter Number of Comments for Sentiment Analysis:</label><br>
+                <div style="display: flex; height: 40px;">
+                    <div style="width: 75%">
+                        <form id ="messageFormDesc" style="margin-bottom: 0px;">
+                        <div class="form-group">
+                            <div>
+                                <input style="height: 30px; width: 140px; margin: 3px; display: inline-block; float: left; bottom: 2px;" id="messageName" placeholder="# of Comments"></input>  
+                                &nbsp;  &nbsp; 
+                                <input style="background-color: #FF6037 !important; float: left;" type="submit" class="btn btn-warning" value="Sentiment Analysis" />
+                                <button style="background-color: #dff441 !important; float: left; color: black; display: block" class="btn btn-success" id="chinese">中文</button><br>
+                            </div>
+                            <br>
                         </div>
-                        <br>
-                        <br>
-                        <div>
-                            <p style="height: 15px; width: 100%; display: none; color: red;" id="messageDesc1"></p>
-                            <textarea style="height: 45px; width: 100%; display: none; color: #414ff4;" id="messageDesc2"></textarea>
-                        </div>
+                        </form>     
                     </div>
-                </form>
+                    <div style="display:inline-block; width: 25%; float: left">
+                        <button style="background-color: #89f442 !important; float: right; color: black; display: block" class="btn btn-success" id="senti_graph">Sentiment Graph</button>
+                        <button style="background-color: #89f442 !important; float: right; color: black; display: none" class="btn btn-success" id="show_graph">Show Graph</button>     
+                    </div>
+                   
+                </div>
+                
+                <div>
+                    <p style="height: 15px; width: 100%; display: none; color: red;" id="messageDesc1"></p>
+                    <textarea style="height: 45px; width: 100%; display: none; color: #414ff4;" id="messageDesc2"></textarea>
+                </div>
+
                 <label for="subscribeNews">Summarize All the Comments into </label> 
                 <select id="topic_num" value="1">
                     <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option>

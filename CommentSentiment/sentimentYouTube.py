@@ -71,8 +71,8 @@ def sentiment(comments):
 			neg += 1
 
 	output = []
-	output.append("Positive sentiment : " + str(pos * 100.0 /len(comments)))
-	output.append("Negative sentiment : " + str((neg * 100.0 /len(comments))))
+	output.append("Positive sentiment : " + str(int(pos * 100.0 /len(comments))))
+	output.append("Negative sentiment : " + str(int(neg * 100.0 /len(comments))))
 	return output
 	# print ("Positive sentiment : ", (pos * 100.0 /len(comments)) )
 	# print ("Negative sentiment : ", (neg * 100.0 /len(comments)) )

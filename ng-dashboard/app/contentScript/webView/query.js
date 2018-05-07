@@ -31,7 +31,7 @@ let cfq = new ContentFrame({
     'id':'webview-query',
     // 'appendTo': '#webdataview-floating-widget',
     'css': ['lib/font-awesome/css/font-awesome.css'],
-    'inlineCss': {"width": "25%", "height": "185px", "position": "fixed", "right": "0px", "top": "0px", "z-index": 2147483647, "border-style": "none", "border-radius": 0, "background": "transparent", "display": "display"}
+    'inlineCss': {"width": "30%", "height": "185px", "position": "fixed", "right": "0px", "top": "0px", "z-index": 2147483647, "border-style": "none", "border-radius": 0, "background": "transparent", "display": "display"}
 }, function(){
     // alert('callback called immediately after ContentFrame created');
     console.log("cf created successfully!");
@@ -39,6 +39,7 @@ let cfq = new ContentFrame({
 let show_me_flag = false;
 let cfq_iframe = cfq.body;
 let target_query = [];
+let fix_height = 185;
 let query_dom_element = null;
 let port = chrome.runtime.connect({name: "knockknock"});
 
@@ -181,8 +182,10 @@ $(document).ready(function() {
                                             }
 
                                             if(result !== ''){
-                                                $('#webview-query').css('height','210px');
-                                                let messageDesc1 = $.parseHTML('<p style="height: 25px; width: 100%; display: block; color: #f44b42;" id="messageDesc1">' + result + '</p>');
+                                                if($('#webview-query').height() < 200){
+                                                    $('#webview-query').css('height','210px');
+                                                }
+                                                let messageDesc1 = $.parseHTML('<p style="height: 15px; width: 100%; display: block; color: #f44b42;" id="messageDesc1">' + result + '</p>');
                                                 ContentFrame.findElementInContentFrame('#messageDesc1','#webview-query').replaceWith(messageDesc1);
                                             }       
                                     }
@@ -196,6 +199,7 @@ $(document).ready(function() {
                                             }
                                             if(result !== ''){
                                                 let new_height = data.msg.length * 26 + 195 + 'px';
+                                                fix_height = new_height;
                                                 $('#webview-query').css('height', new_height);
                                                 new_height = data.msg.length * 26 + 'px';
                                                 ContentFrame.findElementInContentFrame('#messageDesc2','#webview-query').val(result);
@@ -267,13 +271,15 @@ $(document).ready(function() {
                                 
                                 ContentFrame.findElementInContentFrame('#show_graph','#webview-query').click(function(e){
                                     if(ContentFrame.findElementInContentFrame('#imgElem','#webview-query').css('display') === 'block'){
-                                        $('#webview-query').css('height','185px');
-                                        $('#webview-query').css('width','25%');
+                                        $('#webview-query').css('height', fix_height + 'px');
+                                        $('#webview-query').css('width','30%');
                                         ContentFrame.findElementInContentFrame('#imgElem','#webview-query').css('display', 'none');
                                         ContentFrame.findElementInContentFrame('#show_graph','#webview-query').html("Show Graph");
                                     }
                                     else{
-                                        $('#webview-query').css('height','545px');
+                                        let current_height = $('#webview-query').height();
+                                        current_height = 640 + current_height + 'px';
+                                        $('#webview-query').css('height',current_height);
                                         $('#webview-query').css('width','35%');
                                         ContentFrame.findElementInContentFrame('#imgElem','#webview-query').css('display', 'block');
                                         ContentFrame.findElementInContentFrame('#show_graph','#webview-query').html("Hide Graph");

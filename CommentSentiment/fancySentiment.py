@@ -1,3 +1,7 @@
+#@Dorothy Yu, @Herbert Wang, @Ruoxi Yang
+#Generate keyword graph using WordCloud
+#Citation: https://github.com/sachin-bisht/YouTube-Sentiment-Analysis 
+
 import string
 import nltk
 nltk.download('stopwords')
@@ -9,24 +13,35 @@ matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import base64
 
+
 def fancySentiment(comments):
 	stopword = set(stopwords.words('english') + list(string.punctuation) + ['n\'t'])
-	filtered_comments = []
+
+	#Filter through comments to remove stopwords
+	comments_wo_sw = []
+
 	for i in comments:
 		words = word_tokenize(i)
-		temp_filter = ""
+		current_comment = ""
 		for w in words:
 			if w not in stopword:
-				temp_filter += str(w)
-				temp_filter += ' '
-		filtered_comments.append(temp_filter)
-	filtered_comments_str = ' '.join(filtered_comments) 
-	sentiment = WordCloud(background_color = 'orange', max_words=100)
-	sentiment.generate(filtered_comments_str)
+				current_comment += str(w)
+				current_comment += ' '
+		comments_wo_sw.append(current_comment)
+
+	comments_to_str = ' '.join(comments_wo_sw) 
+
+	#Use WorkCloud website to generate a picture of key words
+	keywords = WordCloud(background_color = '#f4f442', max_words=150)
+	keywords.generate(comments_to_str)
+
+	#Plot the picture of key words
 	plt.figure()
-	plt.imshow(sentiment)
+	plt.imshow(keywords)
 	plt.axis("off")
-	plt.savefig('myfig')
-	with open("myfig.png", "rb") as image_file:
+	plt.savefig('keywords_fig')
+
+	#Encode generated image
+	with open("keywords_fig.png", "rb") as image_file:
 		encoded_string = base64.b64encode(image_file.read())
 		return encoded_string
