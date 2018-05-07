@@ -31,7 +31,7 @@ let cfq = new ContentFrame({
     'id':'webview-query',
     // 'appendTo': '#webdataview-floating-widget',
     'css': ['lib/font-awesome/css/font-awesome.css'],
-    'inlineCss': {"width": "40%", "height": "185px", "position": "fixed", "right": "0px", "top": "0px", "z-index": 2147483647, "border-style": "none", "border-radius": 0, "background": "transparent", "display": "display"}
+    'inlineCss': {"width": "45%", "height": "185px", "position": "fixed", "right": "0px", "top": "0px", "z-index": 2147483647, "border-style": "none", "border-radius": 0, "background": "transparent", "display": "display"}
 }, function(){
     // alert('callback called immediately after ContentFrame created');
     console.log("cf created successfully!");
@@ -284,7 +284,7 @@ $(document).ready(function() {
                                 ContentFrame.findElementInContentFrame('#show_graph','#webview-query').click(function(e){
                                     if(ContentFrame.findElementInContentFrame('#imgElem','#webview-query').css('display') === 'block'){
                                         $('#webview-query').css('height', fix_height + 'px');
-                                        $('#webview-query').css('width','40%');
+                                        $('#webview-query').css('width','45%');
                                         ContentFrame.findElementInContentFrame('#imgElem','#webview-query').css('display', 'none');
                                         ContentFrame.findElementInContentFrame('#show_graph','#webview-query').html("Show Graph");
                                     }
@@ -292,7 +292,7 @@ $(document).ready(function() {
                                         let current_height = $('#webview-query').height();
                                         current_height = 640 + current_height + 'px';
                                         $('#webview-query').css('height',current_height);
-                                        $('#webview-query').css('width','45%');
+                                        $('#webview-query').css('width','50%');
                                         ContentFrame.findElementInContentFrame('#imgElem','#webview-query').css('display', 'block');
                                         ContentFrame.findElementInContentFrame('#show_graph','#webview-query').html("Hide Graph");
                                     }
