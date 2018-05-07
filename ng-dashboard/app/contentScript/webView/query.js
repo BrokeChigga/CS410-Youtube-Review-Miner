@@ -31,7 +31,7 @@ let cfq = new ContentFrame({
     'id':'webview-query',
     // 'appendTo': '#webdataview-floating-widget',
     'css': ['lib/font-awesome/css/font-awesome.css'],
-    'inlineCss': {"width": "25%", "height": "200px", "position": "fixed", "right": "0px", "top": "0px", "z-index": 2147483647, "border-style": "none", "border-radius": 0, "background": "transparent", "display": "display"}
+    'inlineCss': {"width": "25%", "height": "185px", "position": "fixed", "right": "0px", "top": "0px", "z-index": 2147483647, "border-style": "none", "border-radius": 0, "background": "transparent", "display": "display"}
 }, function(){
     // alert('callback called immediately after ContentFrame created');
     console.log("cf created successfully!");
@@ -121,14 +121,15 @@ $(document).ready(function() {
                                 }
                                 let vote = $("*").find("#vote-count-middle");
                                 let comments = $("*").find("#content-text");
-                                let lowerbound = 0; let current_vote;
+                                let lowerbound = 0; let current_vote = 0;
                                 let best_comment = '';
 
                                 for(i = 0; i < vote.length; i++){
-                                    current_vote = getVal(vote[i].innerHTML.replace(/\s/g, ''));
-                                    if(current_vote >= lowerbound){
-                                        best_comment = comments[i].innerText;
+                                    current_vote = parseInt(getVal(vote[i].innerHTML.replace(/\s/g, '')));
+                                    if(current_vote > lowerbound){
                                         lowerbound = current_vote;
+                                        best_comment = comments[i].innerText;
+                                       
                                     }
                                 }
                                 if(best_comment !== ''){
@@ -139,26 +140,9 @@ $(document).ready(function() {
                                     ContentFrame.findElementInContentFrame('#vote','#webview-query').replaceWith(vote_html);
                                 }
 
-                                
-                                ContentFrame.findElementInContentFrame('#show_graph','#webview-query').click(function(e){
-                                    if(ContentFrame.findElementInContentFrame('#imgElem','#webview-query').css('display') === 'block'){
-                                        $('#webview-query').css('height','200px');
-                                        $('#webview-query').css('width','25%');
-                                        ContentFrame.findElementInContentFrame('#imgElem','#webview-query').css('display', 'none');
-                                        ContentFrame.findElementInContentFrame('#show_graph','#webview-query').html("Show Graph");
-                                    }
-                                    else{
-                                        $('#webview-query').css('height','545px');
-                                        $('#webview-query').css('width','35%');
-                                        ContentFrame.findElementInContentFrame('#imgElem','#webview-query').css('display', 'block');
-                                        ContentFrame.findElementInContentFrame('#show_graph','#webview-query').html("Hide Graph");
-                                    }
-                                
-                                });
-
-
+                            
                                 port.onMessage.addListener(function(msg) {
-                                    if (msg.question === "get users"){
+                                    if (msg.question === "get users"){ //Image
                                         let data = msg.data;
                                         ContentFrame.findElementInContentFrame('#senti_graph','#webview-query').css('display','none');
                                         ContentFrame.findElementInContentFrame('#show_graph','#webview-query').css('display','block');
@@ -166,8 +150,17 @@ $(document).ready(function() {
                                         img_dom.setAttribute('src', "data:image/jpg;base64," + data);
                     
                                     }
-                                    else if (msg.question === "feedback"){
-                                        
+                                    else if (msg.question === "sk_feedback"){
+                                        let data = msg.data;
+                                        let new_height = data.length * 10 + 30 + 'px';
+                                        $('#webview-tooltip').css('height',new_height);
+                                        let user_html = '<ul id="simi_area" style="display: none; width: 100%;">';
+                                        for(i = 0; i < data.length; i++){
+                                            user_html += '<li>'+data[i]+'</li>';
+                                        }
+                                        user_html += '</ul>';
+                                        ContentFrame.findElementInContentFrame('#simi_area','#webview-tooltip').replaceWith(user_html);
+                                        ContentFrame.findElementInContentFrame('#simi_area','#webview-tooltip').css('display','block');
                                     }
                                     else if(msg.question === "no_connection"){
                                         let noti_question = ContentFrame.findElementInContentFrame('#initial_p','#webview-query');
@@ -181,14 +174,34 @@ $(document).ready(function() {
                                             let result = '';
                                             for(i = 0; i < data.msg.length; i++){
                                                 result += data.msg[i];
-                                                result += '%'
+                                                result += '%';
+                                                if(i === 0){
+                                                    result += '   |   ';
+                                                }
+                                            }
+
+                                            if(result !== ''){
+                                                $('#webview-query').css('height','210px');
+                                                let messageDesc1 = $.parseHTML('<p style="height: 25px; width: 100%; display: block; color: #f44b42;" id="messageDesc1">' + result + '</p>');
+                                                ContentFrame.findElementInContentFrame('#messageDesc1','#webview-query').replaceWith(messageDesc1);
+                                            }       
+                                    }
+                                    else if (msg.question === "feedback") {
+                                            let data = msg.data;
+                                            let result = '';
+                                            for(i = 0; i < data.msg.length; i++){
+                                                result += 'Topic ' + i + ': ';
+                                                result += data.msg[i];
                                                 result += '\n'
                                             }
-                                            console.log(result)
                                             if(result !== ''){
-                                                ContentFrame.findElementInContentFrame('#messageDesc','#webview-query').css('display','block');
-                                                ContentFrame.findElementInContentFrame('#messageDesc','#webview-query').val(result);
-                                            }       
+                                                let new_height = data.msg.length * 26 + 195 + 'px';
+                                                $('#webview-query').css('height', new_height);
+                                                new_height = data.msg.length * 26 + 'px';
+                                                ContentFrame.findElementInContentFrame('#messageDesc2','#webview-query').val(result);
+                                                ContentFrame.findElementInContentFrame('#messageDesc2','#webview-query').css('display', 'block');
+                                                ContentFrame.findElementInContentFrame('#messageDesc2','#webview-query').css('height', new_height);
+                                            }     
                                     }
                                 });
 
@@ -197,7 +210,7 @@ $(document).ready(function() {
                                     // if($username !== undefined) {
                                     //     port.postMessage({answer: "leave", username: $username, domain_name: location.hostname});
                                     // }
-                                    port.postMessage({answer: "exit", domain_name: location.href});
+                                    // port.postMessage({answer: "exit", domain_name: location.href});
                                     // chrome.storage.sync.get("value", function(items) {
                                     //     if (!chrome.runtime.error) {
                                     //         let array = items["value"];
@@ -234,6 +247,7 @@ $(document).ready(function() {
                                     }
                                     port.postMessage({answer: "send message by desc", commentCount: commentCount});  
                                 });
+
                                 ContentFrame.findElementInContentFrame('#senti_graph','#webview-query').click(function(e){
                                     e.preventDefault();
                                     commentCount = ContentFrame.findElementInContentFrame('#messageName', '#webview-query').val();
@@ -243,6 +257,28 @@ $(document).ready(function() {
                                     else{
                                         port.postMessage({answer: "send message", commentCount: 0});  
                                     }
+                                });
+
+                                ContentFrame.findElementInContentFrame('#em_topic','#webview-query').click(function(e){
+                                    let topic_num = ContentFrame.findElementInContentFrame('#topic_num', '#webview-query').val();
+                                    port.postMessage({answer: "new user", data: topic_num});
+                                });
+
+                                
+                                ContentFrame.findElementInContentFrame('#show_graph','#webview-query').click(function(e){
+                                    if(ContentFrame.findElementInContentFrame('#imgElem','#webview-query').css('display') === 'block'){
+                                        $('#webview-query').css('height','185px');
+                                        $('#webview-query').css('width','25%');
+                                        ContentFrame.findElementInContentFrame('#imgElem','#webview-query').css('display', 'none');
+                                        ContentFrame.findElementInContentFrame('#show_graph','#webview-query').html("Show Graph");
+                                    }
+                                    else{
+                                        $('#webview-query').css('height','545px');
+                                        $('#webview-query').css('width','35%');
+                                        ContentFrame.findElementInContentFrame('#imgElem','#webview-query').css('display', 'block');
+                                        ContentFrame.findElementInContentFrame('#show_graph','#webview-query').html("Hide Graph");
+                                    }
+                                
                                 });
                                 
 

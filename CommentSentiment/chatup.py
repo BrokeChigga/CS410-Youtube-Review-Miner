@@ -9,6 +9,7 @@ import comment_extract as CE
 import sentimentYouTube as SYT
 import fancySentiment as FS
 import sklearn_similarity as SS
+import test_lda as TL
 
 import json
 import socketio
@@ -88,18 +89,22 @@ def pre_check(sid, data):
     print("Performing pre-check!!!!!!!")
     url = data['domain_name']
     youtube_id = url[url.find('=')+ 1: ]
-    comment_list = CE.commentExtract(youtube_id, 100)
-
-
+    comment_list = CE.commentExtract(youtube_id, 200)
+    f = open("sample_comment.txt", 'w')
+    f_string = ''.join(str(e) for e in comment_list)
+    f.write(f_string)
+    f.close()
 
 @sio.on('leave')    
 def on_leave(sid, data):
     base_comment_str = data['base_comment_str']
     num_opt_scores = int(data['num_opt_scores'])
-    print("lol")
     output = SS.score_array(base_comment_str, comment_list, num_opt_scores)
-    print(output)
-    print("sdfads")
+    result = []
+    for i in output:
+        result.append(i.encode("utf-8"))
+        
+    sio.emit('sk_feedback', {'msg': result}, room=sid)
 
 @sio.on('send message by desc')
 def send_message_by_desc(sid, data):
@@ -129,13 +134,14 @@ def send_message(sid, data):
     
 @sio.on('new user')
 def new_user(sid, data):
-    pass
-
+    topic_num = int(data['topic_num'])
+    result = TL.lda("sample_comment.txt", topic_num, 15)
+    sio.emit('feedback', {'msg': result}, room=sid)
 
 if __name__ == '__main__':
     app = socketio.Middleware(sio, app)
     # deploy as an eventlet WSGI server
-    # eventlet.wsgi.server(eventlet.listen(('127.0.0.1', 5353)), app) # Localhost
-    # eventlet.wsgi.server(eventlet.wrap_ssl(eventlet.listen(('127.0.0.1', 5353)), certfile='cert.crt',keyfile='private.key',server_side=True), app) # Localhost
-    eventlet.wsgi.server(eventlet.listen(('0.0.0.0', 5353)), app) # kite Server
-    eventlet.wsgi.server(eventlet.wrap_ssl(eventlet.listen(('0.0.0.0', 5353)), certfile='cert.crt',keyfile='private.key',server_side=True), app) # Kite Server
+    eventlet.wsgi.server(eventlet.listen(('127.0.0.1', 5353)), app) # Localhost
+    eventlet.wsgi.server(eventlet.wrap_ssl(eventlet.listen(('127.0.0.1', 5353)), certfile='cert.crt',keyfile='private.key',server_side=True), app) # Localhost
+    # eventlet.wsgi.server(eventlet.listen(('0.0.0.0', 5353)), app) # kite Server
+    # eventlet.wsgi.server(eventlet.wrap_ssl(eventlet.listen(('0.0.0.0', 5353)), certfile='cert.crt',keyfile='private.key',server_side=True), app) # Kite Server

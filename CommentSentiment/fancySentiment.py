@@ -9,7 +9,6 @@ matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import base64
 
-
 def fancySentiment(comments):
 	stopword = set(stopwords.words('english') + list(string.punctuation) + ['n\'t'])
 	filtered_comments = []

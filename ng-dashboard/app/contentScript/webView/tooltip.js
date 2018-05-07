@@ -64,7 +64,10 @@ class TestTooltip {
     });
         let tooltip_html = $.parseHTML('<div class="webdataview" id="webdataview_id" style="background-color: ' + color + '; width: 100%; height: auto; overflow: visible; z-index: 2147483647 !important; ">' +
             '<input type="checkbox" id="filter_prefix" name="subscribe" value="0">'+
-            '<label for="subscribeNews">Find Top Similar Comments: </label> <select id="filter_prefix_num" value="1"><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="1">5</option></select>' +
+            '<label for="subscribeNews">Find Top Similar Comments: </label> <select id="filter_prefix_num" value="1">' +
+            '<option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option>' +
+            '<option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option></select>' +
+            '<ul id="simi_area" style="display: none; width: 100%;"></ul>' +
             '</div>');
         cf.body.append(tooltip_html);
 
@@ -190,9 +193,6 @@ function selectionHandler(event) {
     if(cccccc !== null){
         cccccc.style.outline = 0;
     }
-   
-    
-    let tip = new TestTooltip(event.target, tooltip_color);
 
     if (!tooltip_node || event.target.className != tooltip_node.className) {
         for (let i = 0; i < selected_nodes.length; i++) {
@@ -202,6 +202,7 @@ function selectionHandler(event) {
     }
     if(event.target.id === "content-text"){
         event.target.style.outline = '5px solid ' + tooltip_color;
+        let tip = new TestTooltip(event.target, tooltip_color);
         cccccc = event.target;
     }
 }
