@@ -23,15 +23,29 @@
  */
 
 let web_data_view_query = document.createElement('div');
+let window_width; let expand_width;
 web_data_view_query.id = 'webdataview-floating-query';
 document.body.appendChild(web_data_view_query);
+console.log(window.innerWidth);
+if(window.innerWidth < 1400){
+    window_width = 40 + '%';
+    expand_width = 45 + '%';
+}
+else if(window.innerWidth < 1720 && window.innerWidth > 1400){
+    window_width = 35 + '%';
+    expand_width = 40 + '%';
+}
+else if(window.innerWidth < 1920){
+    window_width = 35 + '%';
+    expand_width = 40 + '%';
+}
 // let port = chrome.runtime.connect({name: "query"});
 
 let cfq = new ContentFrame({
     'id':'webview-query',
     // 'appendTo': '#webdataview-floating-widget',
     'css': ['lib/font-awesome/css/font-awesome.css'],
-    'inlineCss': {"width": "45%", "height": "185px", "position": "fixed", "right": "0px", "top": "0px", "z-index": 2147483647, "border-style": "none", "border-radius": 0, "background": "transparent", "display": "display"}
+    'inlineCss': {"width": window_width, "height": "185px", "position": "fixed", "right": "0px", "top": "0px", "z-index": 2147483647, "border-style": "none", "border-radius": 0, "background": "transparent", "display": "display"}
 }, function(){
     // alert('callback called immediately after ContentFrame created');
     console.log("cf created successfully!");
@@ -145,7 +159,7 @@ $(document).ready(function() {
                                 port.onMessage.addListener(function(msg) {
                                     if (msg.question === "get users"){ //Image
                                         let data = msg.data;
-                                        ContentFrame.findElementInContentFrame('#senti_graph','#webview-query').css('display','none');
+                                        // ContentFrame.findElementInContentFrame('#senti_graph','#webview-query').css('display','none');
                                         ContentFrame.findElementInContentFrame('#show_graph','#webview-query').css('display','block');
                                         let img_dom = ContentFrame.findElementInContentFrame('#imgElem','#webview-query')[0];
                                         img_dom.setAttribute('src', "data:image/jpg;base64," + data);
@@ -284,17 +298,20 @@ $(document).ready(function() {
                                 ContentFrame.findElementInContentFrame('#show_graph','#webview-query').click(function(e){
                                     if(ContentFrame.findElementInContentFrame('#imgElem','#webview-query').css('display') === 'block'){
                                         $('#webview-query').css('height', fix_height + 'px');
-                                        $('#webview-query').css('width','45%');
+                                        $('#webview-query').css('width',window_width);
                                         ContentFrame.findElementInContentFrame('#imgElem','#webview-query').css('display', 'none');
                                         ContentFrame.findElementInContentFrame('#show_graph','#webview-query').html("Show Graph");
+                                        ContentFrame.findElementInContentFrame('#show_graph','#webview-query').css('background-color', '#89f442');
                                     }
                                     else{
                                         let current_height = $('#webview-query').height();
                                         current_height = 640 + current_height + 'px';
                                         $('#webview-query').css('height',current_height);
-                                        $('#webview-query').css('width','50%');
+                                        $('#webview-query').css('width', expand_width);
                                         ContentFrame.findElementInContentFrame('#imgElem','#webview-query').css('display', 'block');
                                         ContentFrame.findElementInContentFrame('#show_graph','#webview-query').html("Hide Graph");
+                                        ContentFrame.findElementInContentFrame('#show_graph','#webview-query').css('background-color', '#ff0043');
+                                        
                                     }
                                 
                                 });

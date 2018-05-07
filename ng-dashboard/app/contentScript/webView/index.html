@@ -39,27 +39,44 @@
                         </div>
                     </div>
                 </form> -->
-                <label>Enter Number of Comments for Sentiment Analysis:</label><br>
+                <div style="display: flex; height: 35px;">
+                    <div style="width: 80%; float: left">
+                        <label>Enter Number of Comments for Sentiment Analysis:</label><br>    
+                    </div>
+                    <div style="width: 20%; float: right; right: 1px;">
+                        <button style="background-color: #dff441 !important; float: right; top: 0px; color: black; display: block" class="btn btn-success" id="chinese">查看评论趋势</button>    
+                    </div>
+                    
+                    <!-- <button style="background-color: #dff441 !important; top: 0px; right: 0px; float: right; color: black; display: block" class="btn btn-success" id="chinese">查看评论趋势</button>     -->
+                </div>
+                
                 <div style="display: flex; height: 40px;">
                     <div style="width: 60%">
                         <form id ="messageFormDesc" style="margin-bottom: 0px;">
-                        <div class="form-group">
+                        <div class="form-group" style="text-align: center;">
                             <div>
-                                <input style="height: 30px; width: 140px; margin: 3px; display: inline-block; float: left; bottom: 2px;" id="messageName" placeholder="# of Comments"></input>  
+                                <input style="height: 30px; width: 100px; margin: 3px; display: inline-block; float: left; bottom: 2px;" id="messageName" placeholder="# of Comments"></input>  
                                 &nbsp;  &nbsp;
-                                <input style="background-color: #FF6037 !important; float: left;" type="submit" class="btn btn-warning" value="Sentiment Analysis" />
+                                <input style="background-color: #FF6037 !important; float: left;" type="submit" class="btn btn-warning" value="See Comments Trend" />
                             </div>
                             <br>
                         </div>
                         </form>     
                     </div>
-                    <div style="width: 15%; float: left">
-                         <button style="background-color: #dff441 !important; float: left; color: black; display: block" class="btn btn-success" id="chinese">中文</button>
-                    </div>
-                    <div style="width: 25%; float: left">
-                        <button style="background-color: #89f442 !important; float: right; color: black; display: block" class="btn btn-success" id="senti_graph">Sentiment Graph</button>
+                    <div style="width: 40%; float: right">
+                         <!-- <button style="background-color: #dff441 !important; float: right; color: black; display: block" class="btn btn-success" id="chinese">查看评论趋势</button> -->
+                        <button style="background-color: #e542f4 !important; float: right; color: black; display: block" class="btn btn-success" id="senti_graph">Keywords Graph</button>
                         <button style="background-color: #89f442 !important; float: right; color: black; display: none" class="btn btn-success" id="show_graph">Show Graph</button>     
                     </div>
+                    <!-- <div style="width: 15%; float: left">
+                        <button style="background-color: #dff441 !important; text-align: center; color: black; display: block" class="btn btn-success" id="chinese">查看评论趋势</button>
+                    </div> 
+                    <div style="width: 25%; float: left">
+                        <button style="background-color: #e542f4 !important; text-align: center; color: black; display: block" class="btn btn-success" id="senti_graph">Keywords Graph</button>
+                    </div> 
+                    <div style="width: 15%; float: left">
+                         <button style="background-color: #89f442 !important; text-align: center; color: black; display: none" class="btn btn-success" id="show_graph">Show Graph</button> 
+                    </div>  -->
                    
                 </div>
                 

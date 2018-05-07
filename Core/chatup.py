@@ -5,9 +5,11 @@ try:
 except ImportError:
     from urlparse import urlparse
 from io import StringIO
-import comment_extract as CE
-import sentimentYouTube as SYT
-import fancySentiment as FS
+
+
+import load_comments as CE
+import analysis_sentiment as SYT
+import graph_sentiment as FS
 import sklearn_similarity as SS
 import test_lda as TL
 
