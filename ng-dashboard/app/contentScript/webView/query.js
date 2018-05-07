@@ -245,10 +245,22 @@ $(document).ready(function() {
                                     e.preventDefault();
                                     commentCount = ContentFrame.findElementInContentFrame('#messageName', '#webview-query').val();
                                     if(commentCount === ''){
-                                        let temp_html = $.parseHTML('<input style="height: 30px; width: 140px; background-color: #f442bc"; font-weight: 600; display: inline-block; float: left; bottom: 2px;" id="messageName" placeholder="Comment Number" value=""></input>');
+                                        let temp_html = $.parseHTML('<input style="height: 30px; width: 140px; margin: 3px; display: inline-block; float: left; bottom: 2px; background-color: #f442bc"; font-weight: 600;" id="messageName" placeholder="# of Comments"></input>');
                                         ContentFrame.findElementInContentFrame('#messageName','#webview-query').replaceWith(temp_html);
                                         return;
                                     }
+                                    port.postMessage({answer: "send message by desc", commentCount: commentCount});  
+                                });
+
+                                ContentFrame.findElementInContentFrame('#chinese','#webview-query').click(function(e){
+                                    e.preventDefault();
+                                    commentCount = ContentFrame.findElementInContentFrame('#messageName', '#webview-query').val();
+                                    if(commentCount === ''){
+                                        let temp_html = $.parseHTML('<input style="height: 30px; width: 140px; margin: 3px; display: inline-block; float: left; bottom: 2px; background-color: #f442bc"; font-weight: 600;" id="messageName" placeholder="# of Comments"></input>');
+                                        ContentFrame.findElementInContentFrame('#messageName','#webview-query').replaceWith(temp_html);
+                                        return;
+                                    }
+                                    commentCount = '-' + commentCount;
                                     port.postMessage({answer: "send message by desc", commentCount: commentCount});  
                                 });
 

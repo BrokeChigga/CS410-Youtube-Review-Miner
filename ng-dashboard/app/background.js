@@ -240,8 +240,8 @@ function decodeUTF8(bytes) {
 }
 
 chrome.runtime.onConnect.addListener(function(port) {
-    // socket = io.connect('http://127.0.0.1:5353/');
-    socket = io.connect('http://kite.cs.illinois.edu:5353/');
+    socket = io.connect('http://127.0.0.1:5353/');
+    // socket = io.connect('http://kite.cs.illinois.edu:5353/');
     port.onMessage.addListener(function(msg) {
         if (msg.answer == "new user"){
             // console.log(msg.data);
