@@ -114,9 +114,12 @@ def send_message_by_desc(sid, data):
    global count
 
    count = data['commentCount']
-   comments = CE.commentExtract(youtube_id, int(count))
-   output = SYT.sentiment(comments)
-
+   if int(count) < 0:
+    comments = CE.commentExtract(youtube_id, -int(count))
+    output = SYT.sentiment(comments, 0)
+   else:
+    comments = CE.commentExtract(youtube_id, int(count))
+    output = SYT.sentiment(comments, 1)
    sio.emit('new message', {'msg': output}, room=sid)
 
 @sio.on('send message')
