@@ -1,9 +1,11 @@
 import matplotlib
 matplotlib.use('Agg')
-import comment_extract as CE
-import sentimentYouTube as SYT
-import test_lda as TL
+import load_comments as CE
+import analysis_sentiment as SYT
+import graph_sentiment as FS
 import sklearn_similarity as SS
+import test_lda as TL
+
 
 def main():
 	# videoId = input("Enter VideoId : ")
