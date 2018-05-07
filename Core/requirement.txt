@@ -18,6 +18,6 @@ Werkzeug==0.12.1
 requests
 lxml
 matplotlib
-nltk
+nltk==3.2.5
 wordcloud
 sklearn
