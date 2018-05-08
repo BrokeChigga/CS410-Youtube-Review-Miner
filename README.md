@@ -1,4 +1,5 @@
 # CS410 Project - Youtube Reivew Miner
+A Chrome Extension application that analyzes and mines YouTube reviews.
 Create by Herbert Wang (rwang67@illinois.edu), Dorothy Yu (jyu65@illinois.edu), Ruoxi Yang (ryang28@illinois.edu)
 
 ## To Use Chrome Apps
