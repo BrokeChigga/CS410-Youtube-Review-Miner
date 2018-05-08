@@ -1,6 +1,6 @@
 # CS410 Project - Youtube Reivew Miner
-A Chrome Extension application that analyzes and mines YouTube reviews.
-Create by Herbert Wang (rwang67@illinois.edu), Dorothy Yu (jyu65@illinois.edu), Ruoxi Yang (ryang28@illinois.edu)
+#### A Chrome Extension application that analyzes and mines YouTube reviews.
+- Create by Herbert Wang (rwang67@illinois.edu), Dorothy Yu (jyu65@illinois.edu), Ruoxi Yang (ryang28@illinois.edu)
 
 ## To Use Chrome Apps
 ###### The server is hosted on http://kite.cs.illinois.edu:5353/, if you are outside of UIUC campus, please be sure to securely connect to the UIUC campus network using VPN.
