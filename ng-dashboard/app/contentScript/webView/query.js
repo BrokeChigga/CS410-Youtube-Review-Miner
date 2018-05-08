@@ -27,17 +27,28 @@ let window_width; let expand_width;
 web_data_view_query.id = 'webdataview-floating-query';
 document.body.appendChild(web_data_view_query);
 console.log(window.innerWidth);
-if(window.innerWidth < 1400){
-    window_width = 40 + '%';
-    expand_width = 45 + '%';
+if(window.innerWidth < 1300){
+
+    window_width = 45 + '%';
+
+    expand_width = 50 + '%';
+
 }
-else if(window.innerWidth < 1720 && window.innerWidth > 1400){
-    window_width = 35 + '%';
-    expand_width = 40 + '%';
+
+else if(window.innerWidth < 1700 && window.innerWidth > 1400){
+
+    window_width = 38 + '%';
+
+    expand_width = 42 + '%';
+
 }
+
 else if(window.innerWidth < 1920){
+
     window_width = 35 + '%';
+
     expand_width = 40 + '%';
+
 }
 // let port = chrome.runtime.connect({name: "query"});
 
