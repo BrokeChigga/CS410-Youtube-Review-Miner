@@ -4,6 +4,7 @@ Create by Herbert Wang (rwang67@illinois.edu), Dorothy Yu (jyu65@illinois.edu), 
 ## To Use Chrome Apps
 ###### The server is hosted on http://kite.cs.illinois.edu:5353/, if you are outside of UIUC campus, please be sure to securely connect to the UIUC campus network using VPN.
 + Check out the code from [here](https://github.com/herbherbherb/CS410_project).
++ Video that shows how to use our application: [https://www.youtube.com/watch?v=yUv-jiRFoPw&feature=youtu.be](https://www.youtube.com/watch?v=yUv-jiRFoPw&feature=youtu.be)
 + Open Chrome and type chrome://extensions/ in the URL box. Make sure the developer mode is turned on. 
 + Unzip the ng-dashboard.zip and drag the unziped ng-dashboard folder onto the chrome://extensions/ page. 
 + Open a youtube page and click on our Chrome Extension button. If you have any question about Chrome extention, you can check-out here: [https://support.google.com/chrome/a/answer/2714278?hl=en](https://support.google.com/chrome/a/answer/2714278?hl=en).
